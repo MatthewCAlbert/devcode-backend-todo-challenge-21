@@ -1,0 +1,12 @@
+version: '3.0'
+services:
+
+  server:
+    image: devcode-backend-todo-challenge-app
+    container_name: devcode-backend-todo-challenge-app
+    build:
+      context: .
+      dockerfile: cmd/server/Dockerfile.prod
+    env_file: ./configs/prod.yaml
+    environment:
+      APP_ENV: production

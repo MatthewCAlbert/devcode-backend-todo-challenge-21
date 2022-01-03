@@ -1,0 +1,42 @@
+version: '3.0'
+services:
+
+  server:
+    image: devcode-backend-todo-challenge-app
+    container_name: devcode-backend-todo-challenge-app
+    restart: unless-stopped
+    ports:
+      - "3030:8080"
+    depends_on:
+      - db
+    networks:
+        - devcode-be-network
+
+  db:
+    image: "mysql:latest"
+    restart: unless-stopped
+    container_name: devcode-backend-todo-challenge-mysql
+    ports:
+      # for debug purpose only
+      - "13306:3306"
+    environment:
+      MYSQL_DATABASE: devcode-todo
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_USER: devcode-be-admin
+      MYSQL_PASSWORD: 12345
+    volumes:
+        - devcode-be-dbdata:/var/lib/mysql/
+        - ./reset-db.sh:/reset-db.sh
+    networks:
+        - devcode-be-network
+
+        
+#Docker Networks
+networks:
+    devcode-be-network:
+        driver: bridge
+
+#Volumes
+volumes:
+    devcode-be-dbdata:
+        driver: local
