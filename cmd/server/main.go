@@ -14,10 +14,8 @@ import (
 )
 
 func main() {
-	flavor := os.Getenv("APP_ENV")
-
 	// load application configurations
-	cfg, err := config.Load(flavor)
+	cfg, err := config.Load()
 	if err != nil {
 		fmt.Println("Config failed")
 		os.Exit(-1)

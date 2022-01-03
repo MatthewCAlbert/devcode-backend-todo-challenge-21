@@ -1,6 +1,8 @@
 package config
 
 import (
+	"fmt"
+
 	"github.com/spf13/viper"
 )
 
@@ -10,6 +12,7 @@ const (
 )
 
 type Config struct {
+	AppEnv        string
 	ServerPort    string
 	MySqlHost     string
 	MySqlPort     string
@@ -18,13 +21,17 @@ type Config struct {
 	MySqlPassword string
 }
 
-func Load(env string) (*Config, error) {
+func Load() (*Config, error) {
 	c := Config{}
 
 	v := viper.New()
 	v.AddConfigPath("./configs/")
 	v.SetConfigType("yaml")
-	if env == "production" {
+	v.SetDefault("APP_ENV", "development")
+
+	c.AppEnv = v.GetString("APP_ENV")
+
+	if c.AppEnv == "production" {
 		v.SetConfigName("prod")
 	} else {
 		v.SetConfigName("dev")
@@ -35,9 +42,11 @@ func Load(env string) (*Config, error) {
 	v.SetDefault("MYSQL_PORT", defaultMySqlPort)
 
 	if err := v.ReadInConfig(); err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 
+	c.AppEnv = v.GetString("APP_ENV")
 	c.ServerPort = v.GetString("server_port")
 	c.MySqlHost = v.GetString("MYSQL_HOST")
 	c.MySqlPort = v.GetString("MYSQL_PORT")
