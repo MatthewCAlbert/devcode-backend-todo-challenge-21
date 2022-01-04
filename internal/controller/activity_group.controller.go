@@ -15,7 +15,7 @@ type ActivityGroupController struct {
 
 func (c *ActivityGroupController) All(context *fiber.Ctx) error {
 	res := []map[string]interface{}{}
-	tx := c.DB.Model(&model.ActivityGroup{}).Find(&res)
+	tx := c.DB.Model(&model.Activity{}).Find(&res)
 	if tx.Error != nil {
 		return tx.Error
 	}
@@ -27,7 +27,7 @@ func (c *ActivityGroupController) GetOne(context *fiber.Ctx) error {
 	id := context.Params("id")
 
 	res := map[string]interface{}{}
-	tx := c.DB.Model(&model.ActivityGroup{}).Take(&res, "id = ?", id)
+	tx := c.DB.Model(&model.Activity{}).Take(&res, "id = ?", id)
 	if tx.Error != nil {
 		return fiber.NewError(fiber.StatusNotFound, fmt.Sprintf("Activity with ID %s Not Found", id))
 	}
@@ -52,7 +52,7 @@ func (c *ActivityGroupController) Create(context *fiber.Ctx) error {
 		return fiber.NewError(fiber.StatusBadRequest, "email cannot be null")
 	}
 
-	newAg := model.ActivityGroup{Title: ag.Title, Email: ag.Email}
+	newAg := model.Activity{Title: ag.Title, Email: ag.Email}
 	res := c.DB.Create(&newAg)
 	if res.Error != nil {
 		return res.Error
@@ -74,8 +74,8 @@ func (c *ActivityGroupController) Update(context *fiber.Ctx) error {
 	}
 
 	// Process
-	ag := model.ActivityGroup{}
-	tx := c.DB.Model(&model.ActivityGroup{}).First(&ag, "id = ?", id)
+	ag := model.Activity{}
+	tx := c.DB.Model(&model.Activity{}).First(&ag, "id = ?", id)
 	if tx.Error != nil {
 		return fiber.NewError(fiber.StatusNotFound, fmt.Sprintf("Activity with ID %s Not Found", id))
 	}
@@ -93,8 +93,8 @@ func (c *ActivityGroupController) Update(context *fiber.Ctx) error {
 func (c *ActivityGroupController) Delete(context *fiber.Ctx) error {
 	id := context.Params("id")
 
-	ag := model.ActivityGroup{}
-	tx := c.DB.Model(&model.ActivityGroup{}).First(&ag, "id = ?", id)
+	ag := model.Activity{}
+	tx := c.DB.Model(&model.Activity{}).First(&ag, "id = ?", id)
 	if tx.Error != nil {
 		return fiber.NewError(fiber.StatusNotFound, fmt.Sprintf("Activity with ID %s Not Found", id))
 	}

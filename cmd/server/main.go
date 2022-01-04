@@ -34,7 +34,7 @@ func main() {
 	}
 
 	// Auto Migrate
-	migrateerr := db.AutoMigrate(&model.ActivityGroup{}, &model.Todo{})
+	migrateerr := db.AutoMigrate(&model.Activity{}, &model.Todo{})
 	if migrateerr != nil {
 		fmt.Println("Migration failed")
 		os.Exit(-1)

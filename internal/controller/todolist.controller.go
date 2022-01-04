@@ -75,15 +75,15 @@ func (c *TodoListController) Create(context *fiber.Ctx) error {
 	}
 
 	// Get
-	ag := model.ActivityGroup{}
-	tx := c.DB.Model(&model.ActivityGroup{}).First(&ag, "id = ?", *todo.ActivityGroupID)
+	ag := model.Activity{}
+	tx := c.DB.Model(&model.Activity{}).First(&ag, "id = ?", *todo.ActivityGroupID)
 	if tx.Error != nil {
 		return fiber.NewError(fiber.StatusNotFound, fmt.Sprintf("Activity with ID %d Not Found", *todo.ActivityGroupID))
 	}
 
 	// Create
 	newTodo := model.Todo{
-		Title: todo.Title, ActivityGroup: ag,
+		Title: todo.Title, ActivityGroupID: ag.ID,
 		IsActive: true, Priority: "very-high",
 	}
 	res := c.DB.Create(&newTodo)
