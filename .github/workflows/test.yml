@@ -22,7 +22,7 @@ jobs:
       run: make run-prod
 
     - name: Run Test
-      run: docker run --rm -e API_URL=http://host.docker.internal:3030 monsterup/devcode-unit-test-1
+      run: docker run --rm --network host -e API_URL=http://localhost:3030 monsterup/devcode-unit-test-1
 
     - name: Stop containers
       run: make stop-prod

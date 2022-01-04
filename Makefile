@@ -75,5 +75,5 @@ test-challenge: ## run unit tests for challenge
 	make run-prod
 	make reset-db
 	docker restart devcode-backend-todo-challenge-app
-	docker run --rm -e API_URL=http://host.docker.internal:3030 monsterup/devcode-unit-test-1
+	docker run --rm --network host -e API_URL=http://localhost:3030 monsterup/devcode-unit-test-1
 	
