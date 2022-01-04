@@ -29,5 +29,6 @@ COPY --from=build /app/configs/prod.yaml ./configs/dev.yaml
 
 COPY --from=build /app/server .
 COPY --from=build /app/cmd/server/entrypoint.sh .
+RUN ["chmod", "+x", "/app/entrypoint.sh"]
 RUN ls -la
 ENTRYPOINT ["./entrypoint.sh"]
