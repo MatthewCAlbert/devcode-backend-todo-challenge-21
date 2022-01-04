@@ -1,0 +1,28 @@
+name: image test
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - '**/README.md'
+
+jobs: 
+  docker:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build Docker Image
+      run: make build-docker
+
+    - name: Start docker compose (db + app)
+      run: make run-prod
+
+    - name: Run Test
+      run: docker run --rm -e API_URL=http://host.docker.internal:3030 monsterup/devcode-unit-test-1
+
+    - name: Stop containers
+      run: make stop-prod
