@@ -27,7 +27,10 @@ func main() {
 		"%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		cfg.MySqlUser, cfg.MySqlPassword, cfg.MySqlHost, cfg.MySqlPort, cfg.MySqlDatabase,
 	)
-	db, dberr := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db, dberr := gorm.Open(mysql.Open(dsn), &gorm.Config{
+		SkipDefaultTransaction: true,
+		PrepareStmt:            true,
+	})
 	if dberr != nil {
 		fmt.Println("DB Connection failed")
 		os.Exit(-1)
