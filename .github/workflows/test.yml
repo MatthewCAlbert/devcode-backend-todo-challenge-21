@@ -1,4 +1,4 @@
-name: image test
+name: Image Test
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
     - name: Build Docker Image
       run: make build-docker
 
-    - name: Start docker compose (db + app)
+    - name: Start docker-compose (DB + App)
       run: make run-prod
 
     - name: Run Test
