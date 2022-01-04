@@ -61,19 +61,22 @@ lint: ## run golint on all Go package
 
 .PHONY: test
 test: ## run unit tests
-	@echo "mode: count" > coverage-all.out
-	@$(foreach pkg,$(PACKAGES), \
-		go test -p=1 -cover -covermode=count -coverprofile=coverage.out ${pkg}; \
-		tail -n +2 coverage.out >> coverage-all.out;)
+	docker run --rm --network host -e API_URL=http://localhost:3030 monsterup/devcode-unit-test-1
 
 .PHONY: test-cover
 test-cover: test ## run unit tests and show test coverage information
 	go tool cover -html=coverage-all.out
+
+.PHONY: test-mini
+test-mini: ## run unit tests for challenge
+	make start-db
+	make reset-db
+	make test
 
 .PHONY: test-challenge
 test-challenge: ## run unit tests for challenge
 	make run-prod
 	make reset-db
 	docker restart devcode-backend-todo-challenge-app
-	docker run --rm --network host -e API_URL=http://localhost:3030 monsterup/devcode-unit-test-1
+	make test
 	

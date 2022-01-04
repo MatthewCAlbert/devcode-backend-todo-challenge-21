@@ -2,13 +2,10 @@ version: "3.0"
 services:
 
   server:
-    image: go-air-dev
-    container_name: devcode-backend-todo-challenge-app-dev
-    build:
-      context: .
-      dockerfile: cmd/server/Dockerfile
-      target: dev
+    image: cosmtrek/air
+    working_dir: /app
+    container_name: devcode-backend-todo-challenge-app
     environment:
       APP_ENV: development
     volumes:
-      - .:/opt/app/api
+      - .:/app

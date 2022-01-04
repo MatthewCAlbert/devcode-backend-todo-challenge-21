@@ -1,6 +1,0 @@
-server_port: 3030
-MYSQL_HOST: 127.0.0.1
-MYSQL_PORT: 13306
-MYSQL_DBNAME: devcode-todo
-MYSQL_USER: devcode-be-admin
-MYSQL_PASSWORD: 12345

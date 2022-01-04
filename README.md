@@ -2,18 +2,30 @@
 
 ## Info
 
-- Docker Hub [matthewcalbert/devcode-backend-todo-challenge](https://hub.docker.com/r/matthewcalbert/devcode-backend-todo-challenge)
+- This is stripped down version ✂️
+- Docker Hub 🐳 [matthewcalbert/devcode-backend-todo-challenge](https://hub.docker.com/r/matthewcalbert/devcode-backend-todo-challenge)
+- Find proper version (non-stripped and non-custom cached) at ["vanilla" 🍦 branch](https://github.com/MatthewCAlbert/devcode-backend-todo-challenge-21/tree/vanilla).
 
 ## Built using
 
-- Go 1.16
+- Go 1.16 🐹
 - Fiber v2
 - GORM
 - MySQL
 
 ## Notes
 
-- Dev Server for docker compose not working right now due to permission error
+- Dev Server now is working 🤟
+
+## Development Local
+
+```sh
+# In a terminal (to dev with fresh db)
+./scripts/run-dev-reset.sh
+
+# Open new terminal (to start testing, don't forget to rerun script above)
+make test
+```
 
 ## Reference
 

@@ -1,14 +1,7 @@
 package config
 
 import (
-	"fmt"
-
-	"github.com/spf13/viper"
-)
-
-const (
-	defaultServerPort = "8080"
-	defaultMySqlPort  = "3306"
+	"os"
 )
 
 type Config struct {
@@ -24,35 +17,14 @@ type Config struct {
 func Load() (*Config, error) {
 	c := Config{}
 
-	v := viper.New()
-	v.AddConfigPath("./configs/")
-	v.SetConfigType("yaml")
-	v.SetDefault("APP_ENV", "development")
+	c.AppEnv = os.Getenv("APP_ENV")
+	c.ServerPort = "3030"
 
-	c.AppEnv = v.GetString("APP_ENV")
-
-	if c.AppEnv == "production" {
-		v.SetConfigName("prod")
-	} else {
-		v.SetConfigName("dev")
-	}
-	v.AutomaticEnv()
-
-	v.SetDefault("server_port", defaultServerPort)
-	v.SetDefault("MYSQL_PORT", defaultMySqlPort)
-
-	if err := v.ReadInConfig(); err != nil {
-		fmt.Println(err)
-		return nil, err
-	}
-
-	c.AppEnv = v.GetString("APP_ENV")
-	c.ServerPort = v.GetString("server_port")
-	c.MySqlHost = v.GetString("MYSQL_HOST")
-	c.MySqlPort = v.GetString("MYSQL_PORT")
-	c.MySqlDatabase = v.GetString("MYSQL_DBNAME")
-	c.MySqlUser = v.GetString("MYSQL_USER")
-	c.MySqlPassword = v.GetString("MYSQL_PASSWORD")
+	c.MySqlPort = "3306"
+	c.MySqlHost = os.Getenv("MYSQL_HOST")
+	c.MySqlDatabase = os.Getenv("MYSQL_DBNAME")
+	c.MySqlUser = os.Getenv("MYSQL_USER")
+	c.MySqlPassword = os.Getenv("MYSQL_PASSWORD")
 
 	return &c, nil
 }

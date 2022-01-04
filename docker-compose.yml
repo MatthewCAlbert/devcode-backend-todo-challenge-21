@@ -7,6 +7,12 @@ services:
     restart: unless-stopped
     ports:
       - "3030:3030"
+    environment:
+      # APP_ENV: production
+      MYSQL_HOST: devcode-backend-todo-challenge-mysql
+      MYSQL_DBNAME: devcode-todo
+      MYSQL_USER: devcode-be-admin
+      MYSQL_PASSWORD: 12345
     depends_on:
       - db
     networks:

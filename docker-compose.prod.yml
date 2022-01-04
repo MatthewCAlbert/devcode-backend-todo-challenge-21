@@ -7,9 +7,3 @@ services:
     build:
       context: .
       dockerfile: cmd/server/Dockerfile.prod
-    environment:
-      # APP_ENV: production
-      MYSQL_HOST: devcode-backend-todo-challenge-mysql
-      MYSQL_DBNAME: devcode-todo
-      MYSQL_USER: devcode-be-admin
-      MYSQL_PASSWORD: 12345
