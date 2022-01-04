@@ -12,7 +12,7 @@ type Todo struct {
 	ActivityGroupID uint
 	ActivityGroup   ActivityGroup
 	Title           string `gorm:"varchar(255)" binding:"required"`
-	IsActive        string `gorm:"char(1)"`
+	IsActive        bool
 	Priority        string `gorm:"varchar(15)"`
 	CreatedAt       time.Time
 	UpdatedAt       time.Time

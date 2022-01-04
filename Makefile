@@ -24,7 +24,7 @@ start-db: ## start db
 
 .PHONY: reset-db
 reset-db: ## reset db
-	docker exec -d devcode-backend-todo-challenge-mysql /reset-db.sh
+	docker exec -d devcode-backend-todo-challenge-mysql ./scripts/reset-db.sh
 
 .PHONY: stop-db
 stop-db: ## stop db
@@ -69,3 +69,11 @@ test: ## run unit tests
 .PHONY: test-cover
 test-cover: test ## run unit tests and show test coverage information
 	go tool cover -html=coverage-all.out
+
+.PHONY: test-challenge
+test-challenge: ## run unit tests for challenge
+	make run-prod
+	make reset-db
+	docker restart devcode-backend-todo-challenge-app
+	docker run --rm -e API_URL=http://host.docker.internal:3030 monsterup/devcode-unit-test-1
+	

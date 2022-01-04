@@ -16,16 +16,8 @@ func (a *ActivityGroupRoutes) Init() {
 
 	// Activity Group
 	a.Router.Get("/", activityController.All)
-	a.Router.Get("/:id", func(c *fiber.Ctx) error {
-		return activityController.HandleSendPlaceholder(c)
-	})
-	a.Router.Post("/", func(c *fiber.Ctx) error {
-		return activityController.HandleSendPlaceholder(c)
-	})
-	a.Router.Delete("/:id", func(c *fiber.Ctx) error {
-		return activityController.HandleSendPlaceholder(c)
-	})
-	a.Router.Patch("/:id", func(c *fiber.Ctx) error {
-		return activityController.HandleSendPlaceholder(c)
-	})
+	a.Router.Get("/:id", activityController.GetOne)
+	a.Router.Post("/", activityController.Create)
+	a.Router.Delete("/:id", activityController.Delete)
+	a.Router.Patch("/:id", activityController.Update)
 }

@@ -14,19 +14,10 @@ type TodoListRoutes struct {
 func (a *TodoListRoutes) Init() {
 	todoListController := controller.TodoListController{DB: a.DB}
 
-	// Activity Group
 	// TodoList
 	a.Router.Get("/", todoListController.All)
-	a.Router.Get("/:id", func(c *fiber.Ctx) error {
-		return todoListController.HandleSendPlaceholder(c)
-	})
-	a.Router.Post("/", func(c *fiber.Ctx) error {
-		return todoListController.HandleSendPlaceholder(c)
-	})
-	a.Router.Delete("/:id", func(c *fiber.Ctx) error {
-		return todoListController.HandleSendPlaceholder(c)
-	})
-	a.Router.Patch("/:id", func(c *fiber.Ctx) error {
-		return todoListController.HandleSendPlaceholder(c)
-	})
+	a.Router.Get("/:id", todoListController.GetOne)
+	a.Router.Post("/", todoListController.Create)
+	a.Router.Delete("/:id", todoListController.Delete)
+	a.Router.Patch("/:id", todoListController.Update)
 }

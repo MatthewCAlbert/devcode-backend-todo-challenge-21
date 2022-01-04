@@ -12,13 +12,14 @@ type Routes struct {
 
 func (a *Routes) Init() {
 
-	// Middleware sih ini
+	// Middleware
 	a.Router.Use("/", func(c *fiber.Ctx) error {
 		c.Accepts(fiber.MIMEApplicationJSON)
 		c.Set(fiber.HeaderContentType, fiber.MIMEApplicationJSON)
 		return c.Next()
 	})
 
+	// Base Routes
 	a.Router.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("ini aplikasi gan")
 	})
